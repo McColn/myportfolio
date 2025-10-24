@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <!-- Latest Font Awesome CDN (6.5+) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- SweetAlert2 CDN for popup-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     :root {
@@ -376,13 +379,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(41, 112, 106, 0.85);
+      background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      opacity: 0;
+      opacity: 0.9;
       transition: all 0.4s ease;
       color: white;
       text-align: center;
@@ -593,19 +596,26 @@
     }
     
     /* Referees */
-    .referees-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    .clients-grid {
+      /* display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px; */
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
       gap: 30px;
     }
     
-    .referee-card {
+    .client-logo img {
       background: white;
       border-radius: 15px;
-      padding: 30px;
+      padding: 10px;
       box-shadow: var(--card-shadow);
       text-align: center;
       transition: all 0.3s ease;
+      height: 100px;
+      width: auto;
     }
     
     .referee-card:hover {
@@ -766,10 +776,29 @@
       .section-title h2 {
         font-size: 30px;
       }
+      .clients {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Django Messages + SweetAlert -->
+  {% if messages %}
+      <script>
+          {% for message in messages %}
+              Swal.fire({
+                  title: "Success!",
+                  text: "{{ message|escapejs }}",
+                  icon: "success",
+                  confirmButtonText: "OK"
+              });
+          {% endfor %}
+      </script>
+  {% endif %}
+
+
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container nav-container">
@@ -919,77 +948,100 @@
     </section>
 
 
-  <!-- Portfolio -->
-  <section id="portfolio" class="section portfolio">
+    <!-- Portfolio -->
+    <section id="portfolio" class="section portfolio">
     <div class="container">
-      <div class="section-title">
+        <div class="section-title">
         <h2>My Latest Work</h2>
-        <p>Perfect solutions for digital challenges</p>
-      </div>
-      <div class="portfolio-grid">
-        <div class="portfolio-item animate">
-          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Web Project" class="portfolio-img">
-          <div class="portfolio-overlay">
-            <h3>Web Development Project</h3>
-            <p>Responsive website with modern UI design</p>
-            <a href="#" class="btn">View Project</a>
-          </div>
+        <p>Innovative solutions built for real-world challenges</p>
         </div>
-        
-        <div class="portfolio-item animate delay-1">
-          <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="UI Design" class="portfolio-img">
-          <div class="portfolio-overlay">
-            <h3>Mobile App UI Design</h3>
-            <p>Fitness application interface design</p>
-            <a href="https://www.figma.com/file/36rsj7qmrj4arZ5u8VgPyX/HUNO-AFYA-PLUS?type=design&node-id=0%3A1&mode=design&t=4eSLLySDihAWu2Za-1" class="btn">View Project</a>
-          </div>
-        </div>
-        
-        <div class="portfolio-item animate delay-2">
-          <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Graphics Design" class="portfolio-img">
-          <div class="portfolio-overlay">
-            <h3>Brand Identity Design</h3>
-            <p>Complete branding package for startup</p>
-            <a href="#" class="btn">View Project</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Education -->
-  <section id="education" class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Education Background</h2>
+        <div class="portfolio-grid">
+
+        <div class="portfolio-item animate">
+            <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1350&q=80" alt="Metallurgical Calculator App" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>Metallurgical Calculator App</h3>
+            <p>Mobile and web application designed to assist metallurgists with accurate material composition and process calculations.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.cornelmtavangu.metallurgicalcalculator&pcampaignid=web_share" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-1">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1350&q=80" alt="E-Commerce System" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>E-Commerce System</h3>
+            <p>Full-stack online store platform featuring user management, cart, orders, and secure payment integration.</p>
+            <a href="https://ecommerce.mccoln.com/" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-2">
+            <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1350&q=80" alt="SMS API Integration" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>SMS API Integration</h3>
+            <p>Integrated SMS gateways for automated notifications, alerts, and marketing messages across business platforms.</p>
+            <a href="https://www.ties.co.tz/payment/pay/" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-3">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1350&q=80" alt="Online Payment System" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>Online Payment System Integration</h3>
+            <p>Developed and integrated secure online payment gateways supporting multiple methods for seamless transactions.</p>
+            <a href="https://www.ties.co.tz/payment/pay/" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-4">
+            <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=1350&q=80" alt="AGKI Medical System" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>AGKI Medical Online Patient Ordering System</h3>
+            <p>Designed a digital platform for patient registration, online doctor consultations, and medicine ordering.</p>
+            <a href="https://agkimedicallaboratory.co.tz/" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-5">
+            <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1350&q=80" alt="TIES Website" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>TIES Company Website</h3>
+            <p>Developed a professional website showcasing Tanzania Integrated Engineering Solutions services and projects.</p>
+            <a href="https://www.ties.co.tz/" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-6">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1350&q=80" alt="TIES ERP System" class="portfolio-img">
+            <div class="portfolio-overlay">
+            <h3>TIES ERP System</h3>
+            <p>Developed a customized enterprise resource planning system to manage projects, clients, employees, and finance operations.</p>
+            <a href="#" class="btn">View Project</a>
+            </div>
+        </div>
+
+        <div class="portfolio-item animate delay-7">
+        <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=1350&q=80" alt="Gold Price API" class="portfolio-img">
+        <div class="portfolio-overlay">
+          <h3>Daily Gold Price API - Tanzania</h3>
+          <p>Developed a RESTful API providing real-time and historical gold price data for the Tanzanian market.</p>
+          <a href="https://www.ties.co.tz/goldapi/api/docs/" class="btn">View Project</a>
+        </div>
       </div>
-      <div class="education-timeline">
-        <div class="education-item animate">
-          <div class="education-year">2019-2023</div>
-          <h3>Mbeya University of Science and Technology</h3>
-          <p>Bachelor of Computer Engineering</p>
-        </div>
-        
-        <div class="education-item animate delay-1">
-          <div class="education-year">2017-2019</div>
-          <h3>Njombe Secondary School</h3>
-          <p>Advanced Secondary School Certificate</p>
-        </div>
-        
-        <div class="education-item animate delay-2">
-          <div class="education-year">June 2019 - September 2019</div>
-          <h3>Makutupola-Dodoma JKT 834</h3>
-          <p>Oparesheni Makao Makuu Dodoma</p>
-        </div>
-        
-        <div class="education-item animate delay-3">
-          <div class="education-year">2013-2016</div>
-          <h3>Mkalala Secondary School</h3>
-          <p>Ordinary Secondary School Certificate</p>
+
+      <div class="portfolio-item animate delay-8">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1350&q=80" alt="Blog Website" class="portfolio-img">
+        <div class="portfolio-overlay">
+          <h3>Personal Blog Website</h3>
+          <p>Developed a responsive blog platform for sharing insights on technology, innovation, and software development trends.</p>
+          <a href="#" class="btn">View Project</a>
         </div>
       </div>
+
+        </div>
     </div>
-  </section>
+    </section>
 
   <!-- Skills -->
   <section class="section">
@@ -1070,6 +1122,42 @@
       </div>
     </div>
   </section>
+  
+  <!-- Education -->
+  <section id="education" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Education Background</h2>
+      </div>
+      <div class="education-timeline">
+        <div class="education-item animate">
+          <div class="education-year">2019-2023</div>
+          <h3>Mbeya University of Science and Technology</h3>
+          <p>Bachelor of Computer Engineering</p>
+        </div>
+        
+        <div class="education-item animate delay-1">
+          <div class="education-year">2017-2019</div>
+          <h3>Njombe Secondary School</h3>
+          <p>Advanced Secondary School Certificate</p>
+        </div>
+        
+        <div class="education-item animate delay-2">
+          <div class="education-year">June 2019 - September 2019</div>
+          <h3>Makutupola-Dodoma JKT 834</h3>
+          <p>Oparesheni Makao Makuu Dodoma</p>
+        </div>
+        
+        <div class="education-item animate delay-3">
+          <div class="education-year">2013-2016</div>
+          <h3>Mkalala Secondary School</h3>
+          <p>Ordinary Secondary School Certificate</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- Contact -->
   <section id="contact" class="section contact">
@@ -1129,15 +1217,16 @@
         
         <div class="contact-form animate delay-1">
           <h3>Send Me a Message</h3>
-          <form>
+          <form method="POST" action="{% url 'contact' %}">
+            {% csrf_token %}
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Full Name" required>
+              <input type="text" class="form-control" name="fullName" placeholder="Full Name" required>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email Address" required>
+              <input type="email" class="form-control" name="email" placeholder="Email Address" required>
             </div>
             <div class="form-group">
-              <textarea class="form-control" placeholder="Your Message" required></textarea>
+              <textarea class="form-control" placeholder="Your Message" name="message" required></textarea>
             </div>
             <button type="submit" class="btn">Send Message</button>
           </form>
@@ -1146,45 +1235,59 @@
     </div>
   </section>
 
-  <!-- Referees -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Referees</h2>
-      </div>
-      <div class="referees-grid">
-        <div class="referee-card animate">
-          <h3>Mr. Sweetbert</h3>
-          <div class="referee-position">CEO</div>
-          <p>S and C Company</p>
-          <div class="referee-contact">
-            <p><i class="fas fa-map-marker-alt"></i> Mbeya, Tanzania</p>
-            <p><i class="fas fa-phone"></i> +255 765 665 034</p>
-          </div>
-        </div>
-        
-        <div class="referee-card animate delay-1">
-          <h3>Mr. Edmund Ng'walago</h3>
-          <div class="referee-position">Director and CEO</div>
-          <p>Ngwala Inventions Hub</p>
-          <div class="referee-contact">
-            <p><i class="fas fa-map-marker-alt"></i> Pwani, Tanzania</p>
-            <p><i class="fas fa-phone"></i> +255 762 165 133</p>
-          </div>
-        </div>
-        
-        <div class="referee-card animate delay-2">
-          <h3>Miss. Magreth Giga</h3>
-          <div class="referee-position">Assistant Lecture</div>
-          <p>Mbeya University</p>
-          <div class="referee-contact">
-            <p><i class="fas fa-map-marker-alt"></i> Mbeya, Tanzania</p>
-            <p><i class="fas fa-phone"></i> +255 676 504 147</p>
-          </div>
-        </div>
-      </div>
+<!-- Clients & Partners -->
+<section id="clients" class="section clients">
+  <div class="container">
+    <div class="section-title">
+      <h2>Clients & Partners</h2>
+      <p>Organizations and technologies I've worked with or integrated to deliver impactful digital solutions.</p>
     </div>
-  </section>
+
+
+    <div class="clients-grid">
+      <div class="client-logo animate">
+        <img src="{% static 'app/ties.png' %}" alt="TIES Logo" title="Tanzania Integrated Engineering Solutions (TIES)">
+      </div>
+
+      <div class="client-logo animate delay-1">
+        <img src="{% static 'app/agki.png' %}" alt="AGKI Medical Lab Logo" title="AGKI Medical Laboratory">
+      </div>
+
+      <div class="client-logo animate delay-2">
+        <img src="{% static 'app/nyt.png' %}" alt="Ngwala Inventions Logo" title="Ngwala Inventions Hub">
+      </div>
+
+      <div class="client-logo animate delay-2">
+        <img src="{% static 'app/mwanalishe.png' %}" alt="Ngwala Inventions Logo" title="Ngwala Inventions Hub">
+      </div>
+
+      <div class="client-logo animate delay-2">
+        <img src="{% static 'app/cyumbi.png' %}" alt="Ngwala Inventions Logo" title="Ngwala Inventions Hub">
+      </div>
+
+      <div class="client-logo animate delay-3">
+        <img src="{% static 'app/meta.png' %}" alt="Meta Logo" title="Meta & Facebook Business">
+      </div>
+
+      <div class="client-logo animate delay-4">
+        <img src="{% static 'app/analytics.svg' %}" alt="Google Analytics Logo" title="Google Analytics & Looker Studio">
+      </div>
+
+      <div class="client-logo animate delay-5">
+        <img src="{% static 'app/azampay.png' %}" alt="azampay" title="azam pay">
+      </div>
+
+      
+
+      <div class="client-logo animate delay-6">
+        <img src="{% static 'app/beem.png' %}" alt="beem" title="Beem Sms">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 
   <!-- Footer -->
   <footer class="footer">
